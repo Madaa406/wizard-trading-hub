@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wizard Trading Hub</title>
+  <style>
+    body { margin:0; font-family: Arial; background:#0f172a; color:white; }
+    .center { display:flex; justify-content:center; align-items:center; height:100vh; }
+    #loader { font-size:30px; animation:pulse 1s infinite; }
+    @keyframes pulse { 0%{opacity:0.3} 50%{opacity:1} 100%{opacity:0.3} }
+
+    #pinScreen, #app { display:none; }
+    input, button { padding:10px; margin:5px; border-radius:6px; border:none; }
+    button { background:#22c55e; color:black; cursor:pointer; }
+    .nav { background:#020617; padding:10px; display:flex; gap:10px; }
+    .box { border:1px solid #334155; padding:15px; margin:10px; border-radius:10px; }
+  </style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div id="loading" class="center">
+  <div id="loader">Loading Wizard Trading Hub...</div>
+</div>
+
+<!-- PIN SCREEN -->
+<div id="pinScreen" class="center">
+  <div class="box">
+    <h2>Enter Security PIN</h2>
+    <input type="password" id="pin" placeholder="Enter PIN">
+    <button onclick="checkPin()">Enter</button>
+    <p id="pinError" style="color:red"></p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="nav">
+    <button onclick="show('bot')">EA Bots</button>
+    <button onclick="show('strategy')">Strategies</button>
+    <button onclick="show('copy')">Copy Trading</button>
+    <button onclick="show('signals')">Signals</button>
+    <button onclick="show('risk')">Risk Calculator</button>
+  </div>
+
+  <div id="bot" class="box">
+    <h3>EA / Bot Area</h3>
+    <input type="file">
+    <p>Upload your bot file here</p>
+  </div>
+
+  <div id="strategy" class="box" style="display:none">
+    <h3>Deriv Strategy (Reverse Psychology)</h3>
+    <p>
+      Rule:
+      <br>1. First green bar must end on ODD digit.
+      <br>2. Second green bar must end on EVEN digit.
+      <br>3. Entry on second green bar.
+    </p>
+  </div>
+
+  <div id="copy" class="box" style="display:none">
+    <h3>Copy Trading</h3>
+    <input placeholder="Master Trader ID">
+    <button>Start Copy</button>
+  </div>
+
+  <div id="signals" class="box" style="display:none">
+    <h3>Signal Area</h3>
+    <textarea rows="5" cols="40" placeholder="Paste signals here"></textarea>
+  </div>
+
+  <div id="risk" class="box" style="display:none">
+    <h3>Risk Management Calculator</h3>
+    <input id="balance" placeholder="Account Balance">
+    <input id="riskPercent" placeholder="Risk %">
+    <button onclick="calcRisk()">Calculate</button>
+    <p id="riskResult"></p>
+  </div>
+</div>
+
+<script>
+  // LOADER
+  setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+    document.getElementById("pinScreen").style.display="flex";
+  },2000);
+
+  const REAL_PIN = "1234"; // change this
+
+  function checkPin(){
+    let pin = document.getElementById("pin").value;
+    if(pin === REAL_PIN){
+      document.getElementById("pinScreen").style.display="none";
+      document.getElementById("app").style.display="block";
+    } else {
+      document.getElementById("pinError").innerText="Wrong PIN!";
+    }
+  }
+
+  function show(id){
+    ["bot","strategy","copy","signals","risk"].forEach(x=>{
+      document.getElementById(x).style.display="none";
+    });
+    document.getElementById(id).style.display="block";
+  }
+
+  function calcRisk(){
+    let bal = Number(balance.value);
+    let risk = Number(riskPercent.value);
+    let amount = (bal * risk) / 100;
+    document.getElementById("riskResult").innerText =
+      "Risk per trade: $" + amount.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wizard Trading Hub</title>
+  <style>
+    body { margin:0; font-family: Arial; background:#0f172a; color:white; }
+    .center { display:flex; justify-content:center; align-items:center; height:100vh; }
+    #loader { font-size:30px; animation:pulse 1s infinite; }
+    @keyframes pulse { 0%{opacity:0.3} 50%{opacity:1} 100%{opacity:0.3} }
+
+    #pinScreen, #app { display:none; }
+    input, button, textarea { padding:10px; margin:5px; border-radius:6px; border:none; }
+    button { background:#22c55e; color:black; cursor:pointer; }
+    .nav { background:#020617; padding:10px; display:flex; gap:10px; }
+    .box { border:1px solid #334155; padding:15px; margin:10px; border-radius:10px; }
+  </style>
+</head>
+
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading" class="center">
+  <div id="loader">Loading Wizard Trading Hub...</div>
+</div>
+
+<!-- PIN SCREEN -->
+<div id="pinScreen" class="center">
+  <div class="box">
+    <h2>Wizard Trading Hub</h2>
+    <p>Enter Security PIN</p>
+    <input type="password" id="pin" placeholder="Enter PIN">
+    <br>
+    <button onclick="checkPin()">Enter</button>
+    <p id="pinError" style="color:red"></p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="nav">
+    <button onclick="show('bot')">EA Bots</button>
+    <button onclick="show('strategy')">Strategies</button>
+    <button onclick="show('copy')">Copy Trading</button>
